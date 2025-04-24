@@ -14,4 +14,13 @@ def profundidad_limitada(grafo, inicio, objetivo, limite):
 
     return dfs_limitado(inicio, objetivo, limite, [])  # Inicia el DFS con límite
 
+grafo_simple = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
 print("\nDFS Limitado - Camino:", profundidad_limitada(grafo_simple, 'A', 'F', 3))
