@@ -1,0 +1,37 @@
+# TEMA: Búsqueda Online — Explora el entorno paso a paso sin conocer toda la estructura del grafo
+
+# Simulamos un entorno como si el agente no conociera todo el grafo
+
+# Función que "revela" los vecinos de un nodo
+def obtener_vecinos(nodo):
+    conexiones = {
+        'A': ['B', 'C'],
+        'B': ['D'],
+        'C': ['E'],
+        'D': [],
+        'E': []
+    }
+    return conexiones.get(nodo, [])
+
+# Función de búsqueda online
+def busqueda_online(inicio, objetivo):
+    frontera = [inicio]  # Lista de nodos por explorar
+    visitados = set()  # Nodos ya visitados
+
+    while frontera:
+        nodo = frontera.pop(0)  # Sacamos el primer nodo
+        print(f"Explorando: {nodo}")
+
+        if nodo == objetivo:
+            print("¡Objetivo alcanzado!")
+            return
+
+        visitados.add(nodo)  # Marcamos como visitado
+
+        # Obtenemos vecinos solo en este momento (simula entorno desconocido)
+        vecinos = obtener_vecinos(nodo)
+
+        # Agregamos vecinos nuevos a la frontera
+        frontera += [n for n in vecinos if n not in visitados]
+
+busqueda_online('A', 'E')  # Ejecutamos la búsqueda
