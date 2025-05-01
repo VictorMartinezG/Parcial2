@@ -1,0 +1,44 @@
+# TEMA: Búsqueda de Haz Local — Mantiene varios caminos simultáneamente y selecciona los mejores en cada iteración
+
+import heapq  # Importamos para manejar colas de prioridad
+
+# Grafo con conexiones
+grafo = {
+    'A': ['B', 'C', 'D'],
+    'B': ['E'],
+    'C': ['F'],
+    'D': ['G'],
+    'E': [],
+    'F': [],
+    'G': []
+}
+
+# Heurísticas (cuanto más bajo, mejor)
+heuristica = {
+    'A': 10,
+    'B': 8,
+    'C': 7,
+    'D': 9,
+    'E': 3,
+    'F': 2,
+    'G': 1
+}
+
+# Función de búsqueda de haz local
+def local_beam_search(inicio, k=2, max_iter=5):
+    haz = [inicio]  # Inicializamos la lista de nodos activos
+
+    for i in range(max_iter):  # Iteramos hasta alcanzar el máximo permitido
+        print(f"Iteración {i+1} — Haz: {haz}")
+        vecinos = []  # Lista de todos los vecinos posibles
+
+        for nodo in haz:  # Para cada nodo en el haz actual
+            vecinos.extend(grafo[nodo])  # Agregamos sus vecinos
+
+        if not vecinos:
+            break  # Si ya no hay vecinos, terminamos
+
+        # Elegimos los mejores k vecinos según heurística
+        haz = heapq.nsmallest(k, vecinos, key=lambda x: heuristica[x])
+
+local_beam_search('A')  # Ejecutamos el algoritmo
