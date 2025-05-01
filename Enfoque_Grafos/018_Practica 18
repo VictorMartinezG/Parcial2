@@ -1,0 +1,26 @@
+# TEMA: Redes de Decisión — Combina decisiones, chance y utilidad (modelo simplificado)
+
+import random  # Usamos para simular incertidumbre
+
+# Nodo de decisión: elegir entre dos caminos
+decisiones = ['Camino_A', 'Camino_B']
+
+# Nodo de probabilidad: eventos que ocurren después de cada decisión
+probabilidades = {
+    'Camino_A': [('Éxito', 0.8), ('Fallo', 0.2)],
+    'Camino_B': [('Éxito', 0.5), ('Fallo', 0.5)]
+}
+
+# Utilidad esperada de los resultados
+utilidades = {
+    'Éxito': 100,
+    'Fallo': -50
+}
+
+# Calculamos utilidad esperada para cada decisión
+def utilidad_esperada(decision):
+    return sum(prob * utilidades[outcome] for outcome, prob in probabilidades[decision])
+
+# Escogemos la mejor decisión
+mejor = max(decisiones, key=utilidad_esperada)
+print(f"Mejor decisión: {mejor} con utilidad esperada {utilidad_esperada(mejor)}")
