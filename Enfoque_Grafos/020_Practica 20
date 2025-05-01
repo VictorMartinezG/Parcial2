@@ -1,0 +1,12 @@
+# TEMA: Valor de la Información — Evalúa si vale la pena obtener más datos antes de actuar
+
+# Sin información: suponemos 50% probabilidad de éxito
+utilidad_sin_info = 0.5 * 100 + 0.5 * (-50)
+
+# Con información: sabemos si será éxito o fallo antes de decidir
+# Valor esperado con información perfecta: elegimos actuar solo si será éxito
+utilidad_con_info = 0.5 * 100 + 0.5 * 0  # En fallo decidimos no actuar (0 utilidad)
+
+# Valor de la información: diferencia entre los dos escenarios
+valor_info = utilidad_con_info - utilidad_sin_info
+print(f"Valor de la información perfecta: {valor_info}")
