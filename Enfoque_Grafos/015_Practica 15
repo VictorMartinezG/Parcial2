@@ -1,0 +1,47 @@
+# TEMA: Algoritmo Genético — Evoluciona caminos en un grafo mediante selección, cruce y mutación
+
+import random  # Librería para aleatoriedad
+
+# Definimos nodos posibles para formar caminos
+nodos = ['A', 'B', 'C', 'D', 'E', 'F']
+
+# Definimos heurística artificial para evaluar calidad del camino
+def evaluar(camino):
+    return sum(ord(c) for c in camino)  # Suma simple de códigos ASCII como ejemplo
+
+# Función para crear un individuo aleatorio
+def crear_individuo():
+    return random.sample(nodos, len(nodos))  # Caminos aleatorios sin repetir nodos
+
+# Función de cruce entre dos individuos
+def cruzar(padre1, padre2):
+    corte = random.randint(1, len(padre1)-2)  # Punto de corte
+    hijo = padre1[:corte] + [gen for gen in padre2 if gen not in padre1[:corte]]  # Mezcla ordenada
+    return hijo
+
+# Mutación: intercambia dos genes al azar
+def mutar(individuo):
+    i, j = random.sample(range(len(individuo)), 2)
+    individuo[i], individuo[j] = individuo[j], individuo[i]
+
+# Algoritmo genético principal
+def genetico(generaciones=10, poblacion_size=4):
+    poblacion = [crear_individuo() for _ in range(poblacion_size)]  # Población inicial
+
+    for g in range(generaciones):  # Ciclo de generaciones
+        poblacion.sort(key=evaluar)  # Ordenamos por aptitud (menor es mejor)
+        print(f"Generación {g+1} — Mejor: {poblacion[0]} Puntaje: {evaluar(poblacion[0])}")
+
+        # Selección de los 2 mejores
+        padres = poblacion[:2]
+
+        nuevos = []
+        while len(nuevos) < poblacion_size:
+            hijo = cruzar(padres[0], padres[1])
+            if random.random() < 0.3:
+                mutar(hijo)
+            nuevos.append(hijo)
+
+        poblacion = nuevos  # Reemplazamos la población
+
+genetico()  # Ejecutamos el algoritmo
