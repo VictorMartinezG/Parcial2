@@ -1,0 +1,12 @@
+# TEMA: POMDP — El agente no conoce su estado exacto, solo una creencia (probabilidad)
+
+# Estados posibles y observaciones
+estados = ['Bueno', 'Malo']
+creencia = {'Bueno': 0.6, 'Malo': 0.4}
+
+# Utilidades esperadas según creencia
+utilidades = {'Bueno': 100, 'Malo': -50}
+
+# Valor esperado basado en creencia actual
+valor_esperado = sum(creencia[s] * utilidades[s] for s in estados)
+print(f"Valor esperado según creencia: {valor_esperado}")
