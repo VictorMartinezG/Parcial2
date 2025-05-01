@@ -1,0 +1,31 @@
+# TEMA: Iteración de Políticas — Mejora una política hasta alcanzar una óptima
+
+# Estados y acciones
+estados = ['A', 'B']
+acciones = {
+    'A': {'B': 1.0},
+    'B': {'A': 1.0}
+}
+
+# Recompensas por estado
+recompensas = {'A': 0, 'B': 10}
+descuento = 0.9
+
+# Inicializamos política y valores
+politica = {'A': 'B', 'B': 'A'}
+V = {s: 0 for s in estados}
+
+# Iteramos política
+for _ in range(5):
+    # Evaluación de la política
+    for _ in range(5):
+        for s in estados:
+            a = politica[s]
+            V[s] = sum(prob * (recompensas[dest] + descuento * V[dest]) for dest, prob in acciones[s].items())
+
+    # Mejora de la política
+    for s in estados:
+        mejor_a = max(acciones[s], key=lambda dest: recompensas[dest] + descuento * V[dest])
+        politica[s] = mejor_a
+
+print("Política óptima:", politica)
