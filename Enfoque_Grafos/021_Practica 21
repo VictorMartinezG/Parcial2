@@ -1,0 +1,25 @@
+# TEMA: Iteración de Valores — Calcula utilidades óptimas mediante actualización iterativa
+
+# Modelo simple con 3 estados y transiciones probabilísticas
+estados = ['A', 'B', 'C']
+transiciones = {
+    'A': {'B': 1.0},
+    'B': {'C': 1.0},
+    'C': {'C': 1.0}  # Estado terminal
+}
+
+recompensas = {'A': 0, 'B': 0, 'C': 100}  # Solo el estado C da recompensa
+descuento = 0.9  # Factor de descuento gamma
+
+# Inicializamos valores
+V = {s: 0 for s in estados}
+
+# Iteramos para actualizar valores
+for _ in range(10):
+    nuevo_V = {}
+    for s in estados:
+        valor = sum(prob * (recompensas[dest] + descuento * V[dest]) for dest, prob in transiciones[s].items())
+        nuevo_V[s] = valor
+    V = nuevo_V
+
+print("Valores óptimos por estado:", V)
