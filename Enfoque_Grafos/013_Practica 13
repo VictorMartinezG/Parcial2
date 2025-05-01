@@ -1,0 +1,51 @@
+# TEMA: Búsqueda de Temple Simulado — Acepta soluciones peores con cierta probabilidad para escapar de óptimos locales
+
+import math  # Importamos la librería para funciones matemáticas
+import random  # Para generar números aleatorios
+
+# Grafo con conexiones y heurísticas simuladas
+grafo = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': [],
+    'F': []
+}
+
+# Heurística (menor es mejor, representa la calidad del nodo)
+heuristica = {
+    'A': 10,
+    'B': 8,
+    'C': 6,
+    'D': 4,
+    'E': 3,
+    'F': 2
+}
+
+# Función principal de temple simulado
+def simulated_annealing(inicio, temperatura_inicial=100, enfriamiento=0.95):
+    actual = inicio  # Nodo inicial
+    temperatura = temperatura_inicial  # Establecemos la temperatura inicial
+
+    while temperatura > 1:  # Repetimos mientras la temperatura sea significativa
+        print(f"Visitando: {actual} con heurística {heuristica[actual]}")
+
+        vecinos = grafo[actual]  # Obtenemos vecinos
+        if not vecinos:
+            break  # Si no hay vecinos, termina
+
+        candidato = random.choice(vecinos)  # Elegimos un vecino aleatorio
+
+        delta = heuristica[actual] - heuristica[candidato]  # Mejora entre actual y candidato
+
+        if delta > 0:
+            actual = candidato  # Si el candidato es mejor, lo aceptamos
+        else:
+            probabilidad = math.exp(delta / temperatura)  # Calculamos probabilidad de aceptar uno peor
+            if random.random() < probabilidad:
+                actual = candidato  # Aceptamos peor con cierta probabilidad
+
+        temperatura *= enfriamiento  # Reducimos la temperatura gradualmente
+
+simulated_annealing('A')  # Ejecutamos el algoritmo
