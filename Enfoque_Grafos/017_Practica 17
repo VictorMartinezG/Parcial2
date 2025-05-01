@@ -1,0 +1,16 @@
+# TEMA: Teoría de la Utilidad — Usamos una función de utilidad para evaluar y comparar estados/nodos
+
+# Definimos una función de utilidad simple que asigna valores a estados posibles
+utilidades = {
+    'A': 10,
+    'B': 20,
+    'C': 5,
+    'D': 15
+}
+
+# Lista de decisiones posibles (nodos alcanzables)
+opciones = ['A', 'B', 'C', 'D']
+
+# Elegimos la opción con la utilidad más alta
+mejor_opcion = max(opciones, key=lambda x: utilidades[x])
+print(f"Mejor decisión: {mejor_opcion} con utilidad {utilidades[mejor_opcion]}")
