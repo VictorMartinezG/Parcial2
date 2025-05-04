@@ -1,0 +1,23 @@
+# Tema: Percepción - Reconocimiento de Escritura
+# Detecta si una imagen representa una letra "L"
+
+# Simulación de una 'L' escrita en matriz 5x5
+letra = [
+    [1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1]
+]
+
+# Verificamos si tiene forma de 'L': columna izquierda llena + fila inferior llena
+es_L = True
+for i in range(5):
+    if letra[i][0] != 1:
+        es_L = False
+
+for j in range(5):
+    if letra[4][j] != 1:
+        es_L = False
+
+print("¿Es la letra L?:", es_L)
