@@ -1,0 +1,15 @@
+# Tema: Sistemas Expertos
+# Simulación de un sistema experto básico basado en reglas IF-THEN
+
+# Reglas del sistema
+def sistema_experto(sintoma):
+    if sintoma == "fiebre":
+        return "Posible infección."
+    elif sintoma == "dolor de cabeza":
+        return "Posible migraña."
+    else:
+        return "Síntoma desconocido."
+
+# Entrada del usuario
+entrada = "fiebre"
+print("Diagnóstico:", sistema_experto(entrada))
