@@ -24,4 +24,4 @@ def expandir(simbolo):
     return ""  # Fallback
 
 # Generar frase
-print("Frase generada:", expandir("S"))
+print("Frase generada:", expandir("S")) 
